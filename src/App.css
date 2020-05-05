@@ -1,38 +1,150 @@
 .App {
-  text-align: center;
+  width: 100%;
+  margin: 0 auto;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.fm-header {
+  display: grid;
+  grid-template-columns: 0fr 1fr 4fr 0fr;
+  align-items: center;
+  padding: 20px 5%;
+  border-bottom: 1px solid #000;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.fm-header_logo {
+  height: 50px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.fm-header_siteName {
+  font-size: 2rem;
+}
+
+.fm-header_searchBar {
+  height: 50px;
+  background: #e8e8e8;
+  border: none;
+  border-radius: 6px 0 0 6px;
+  font-size: 1.5rem;
+  padding: 0 50px;
+  outline: none;
+}
+
+.fm-header_searchBar:focus {
+  background: #f7f7f7;
+}
+
+.fm-header_searchBtn {
+  height: 50px;
+  outline: none;
+  border: 1px solid #e8e8e8;
+  padding: 0 20px;
+  font-size: 1.5rem;
+  border-radius: 0 6px 6px 0;
+}
+
+.fm {
+  padding: 40px 5%;
+}
+
+.fm-current-path {
+  font-size: 1.2rem;
+  border-bottom: 1px solid #e8e8e8;
+  padding-bottom: 5px;
+}
+
+.fm-column-names {
+  display: grid;
+  grid-template-columns: 2fr 1fr 0fr 0fr;
+}
+
+.fm-column-names p:nth-child(3),
+.fm-column-names p:nth-child(4) {
+  width: 30px;
+}
+
+.fm-column-sortBtn {
+  border-radius: 100%;
+  height: 20px;
+  width: 20px;
+  padding: 0;
+  outline: none;
+}
+
+.fm-controlBar {
+  display: flex;
+  padding: 10px;
+  width: calc(100% -20px);
+  border-radius: 6px;
+  margin-top: 10px;
+}
+
+.fm-controlBar img {
+  height: 30px;
+  padding: 5px;
+  opacity: 0;
+  border: 1px solid transparent;
+}
+
+.fm-item-row img {
+  border: 1px solid transparent;
+}
+
+.fm-controlBar_icon {
+  opacity: 0;
+}
+
+.fm-controlBar_icon--active {
+  opacity: 1 !important;
+}
+
+.fm-controlBar_icon--active:hover {
+  border-bottom: 1px solid #000;
+}
+
+.fm-controlBar_flex-delimiter {
+  height: 0;
+  width: 0;
+  margin-left: auto;
+}
+
+.fm-controlBar_item-context {
+  position: absolute;
+  background: #cfcfcf;
+  padding: 20px;
   display: flex;
   flex-direction: column;
+  border-radius: 4px;
+}
+
+.fm-controlBar_item-context input {
+  margin: 10px 0;
+  outline: none;
+}
+
+.fm-item-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 0fr 0fr;
+  border-bottom: #e8e8e8 1px solid;
+  margin-top: 5px;
+  padding: 5px 0;
+}
+
+.fm-item-row:focus {
+  background: #edf7ff;
+  outline: none;
+}
+
+.fm-item-row img {
+  height: 20px;
+  margin-right: 10px;
+}
+
+.fm-item-row_filename {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.fm-item-row_date {
+  font-size: 0.8rem;
+  align-self: end;
 }
