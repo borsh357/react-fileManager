@@ -2,14 +2,9 @@ import React from 'react';
 import propTypes from 'prop-types';
 import logo from '../img/logo.svg';
 import FMConcrolBar from './FMControlBar';
+import { filemanagerStructure } from './FileManager';
 
 export default class FileManagerUI extends React.Component {
-  state = {
-    sortMethod: 'byNameDESC',
-  };
-
-  createEntry = this.props.createEntry;
-
   render() {
     return (
       <div>
@@ -28,19 +23,37 @@ export default class FileManagerUI extends React.Component {
 
           {/* далее метод передается компоненту controlBar */}
           {/* upd: метод успешно передается ниже */}
-          <FMConcrolBar createEntry={this.createEntry} />
+          <FMConcrolBar />
 
           <div className="fm-column-names">
             <p>
               Name{' '}
-              <button className="fm-column-sortBtn">
-                {this.state.sortMethod === 'byNameASC' ? '\u2191' : '\u2193'}
+              <button
+                className="fm-column-sortBtn"
+                onClick={() => {
+                  filemanagerStructure.sortMethod === 'byNameASC'
+                    ? (filemanagerStructure.sortMethod = 'byNameDESC')
+                    : (filemanagerStructure.sortMethod = 'byNameASC');
+                }}
+              >
+                {filemanagerStructure.sortMethod === 'byNameASC'
+                  ? '\u2191'
+                  : '\u2193'}
               </button>
             </p>
             <p>
               Date{' '}
-              <button className="fm-column-sortBtn">
-                {this.state.sortMethod === 'byDateASC' ? '\u2191' : '\u2193'}
+              <button
+                className="fm-column-sortBtn"
+                onClick={() => {
+                  filemanagerStructure.sortMethod === 'byDateDESC'
+                    ? (filemanagerStructure.sortMethod = 'byDateASC')
+                    : (filemanagerStructure.sortMethod = 'byDateDESC');
+                }}
+              >
+                {filemanagerStructure.sortMethod === 'byDateASC'
+                  ? '\u2191'
+                  : '\u2193'}
               </button>
             </p>
             <p></p>

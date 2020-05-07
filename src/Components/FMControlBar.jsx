@@ -3,24 +3,21 @@ import propTypes from 'prop-types';
 import OutsideClickHandler from 'react-outside-click-handler';
 import folderCreateIcon from '../img/folder-create.svg';
 import fileCreateIcon from '../img/file-create.svg';
-import filemanagerStructure from './FileManager';
+import { filemanagerStructure } from './FileManager';
 
-export default function FMConcrolBar(props) {
-  const createEntry = props.createEntry;
+export default function FMConcrolBar() {
   return (
     <div className="fm-controlBar">
       <FMConcrolBarItem
         active={true}
-        src={folderCreateIcon}
+        icon={folderCreateIcon}
         title="Create Folder"
-        // тут необходимо передать метод в FMCreateFileShowContext, который в свою очередь сам передается как пропс, вот тут причина
-        // upd: метод успешно передается ниже
-        contextMenu={<FMCreateFolderShowContext createEntry={createEntry} />}
+        contextMenu={<FMCreateFolderShowContext />}
       />
 
       <FMConcrolBarItem
         active={true}
-        src={fileCreateIcon}
+        icon={fileCreateIcon}
         title="Create File"
         contextMenu={<FMCreateFileShowContext />}
       />
@@ -29,14 +26,14 @@ export default function FMConcrolBar(props) {
 }
 
 export function FMConcrolBarItem(props) {
-  const { active, src, title, contextMenu } = props;
+  const { active, icon, title, contextMenu } = props;
   const [isContextShown, toggleContextShow] = React.useState(false);
 
   FMConcrolBarItem.propTypes = {
     active: propTypes.bool.isRequired,
-    src: propTypes.string.isRequired,
+    icon: propTypes.string.isRequired,
     title: propTypes.string.isRequired,
-    contextMenu: propTypes.func,
+    contextMenu: propTypes.object,
   };
 
   return (
@@ -50,7 +47,7 @@ export function FMConcrolBarItem(props) {
           className={
             active ? 'fm-controlBar_icon--active' : 'fm-controlBar_icon'
           }
-          src={src}
+          src={icon}
           alt={title}
           title={title}
           onClick={() => {
@@ -64,12 +61,9 @@ export function FMConcrolBarItem(props) {
   );
 }
 
-function FMCreateFolderShowContext(props) {
-  const createEntry = props.createEntry;
-
+function FMCreateFolderShowContext() {
   return (
     <div className="fm-controlBar_item-context">
-      {console.log(createEntry)}
       <label htmlFor="fm-controlBar_create-folder-input">Create folder</label>
       <input
         id="fm-controlBar_create-folder-input"
@@ -77,11 +71,12 @@ function FMCreateFolderShowContext(props) {
         placeholder="Name"
       />
       <button
-        //обработчик событий который должен вызвать передаваемый метод и создать папку
-        //upd: метод дошел до кнопки, но он обращается не к родительскому элементу
         onClick={() => {
-          createEntry('folder', 'folder2', '0');
-          console.log(filemanagerStructure);
+          const folderName = document
+            .getElementById('fm-controlBar_create-folder-input')
+            .value.trim();
+          if (folderName === '') return;
+          filemanagerStructure.createEntry('folder', folderName, '0');
         }}
       >
         Create
@@ -99,7 +94,17 @@ function FMCreateFileShowContext() {
         type="text"
         placeholder="Name"
       />
-      <button>Create</button>
+      <button
+        onClick={() => {
+          const fileName = document
+            .getElementById('fm-controlBar_create-file-input')
+            .value.trim();
+          if (fileName === '') return;
+          filemanagerStructure.createEntry('file', fileName, '0');
+        }}
+      >
+        Create
+      </button>
     </div>
   );
 }
