@@ -32,6 +32,7 @@ export default class FileManager extends React.Component {
       name: name,
       date: dateString,
     };
+
     if (newEntry.type === 'folder') newEntry.files = [];
 
     if (parentId) {
@@ -69,6 +70,7 @@ export default class FileManager extends React.Component {
 
   render() {
     return (
+      // upd: метод успешно передается ниже
       <FileManagerUI createEntry={this.createEntry}>
         {this.getEntriesFrom(0)}
 

@@ -7,6 +7,9 @@ export default class FileManagerUI extends React.Component {
   state = {
     sortMethod: 'byNameDESC',
   };
+
+  createEntry = this.props.createEntry;
+
   render() {
     return (
       <div>
@@ -24,7 +27,9 @@ export default class FileManagerUI extends React.Component {
           <div className="fm-current-path">My space &gt; folder</div>
 
           {/* далее метод передается компоненту controlBar */}
-          <FMConcrolBar createEntry={this.props.createEntry} />
+          {/* upd: метод успешно передается ниже */}
+          <FMConcrolBar createEntry={this.createEntry} />
+
           <div className="fm-column-names">
             <p>
               Name{' '}

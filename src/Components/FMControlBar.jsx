@@ -5,17 +5,19 @@ import folderCreateIcon from '../img/folder-create.svg';
 import fileCreateIcon from '../img/file-create.svg';
 import filemanagerStructure from './FileManager';
 
-export default function FMConcrolBar() {
+export default function FMConcrolBar(props) {
+  const createEntry = props.createEntry;
   return (
     <div className="fm-controlBar">
       <FMConcrolBarItem
         active={true}
         src={folderCreateIcon}
         title="Create Folder"
-        contextMenu={<FMCreateFolderShowContext />}
+        // тут необходимо передать метод в FMCreateFileShowContext, который в свою очередь сам передается как пропс, вот тут причина
+        // upd: метод успешно передается ниже
+        contextMenu={<FMCreateFolderShowContext createEntry={createEntry} />}
       />
 
-      {/* тут необходимо передать метод в FMCreateFileShowContext, который в свою очередь сам передается как пропс, вот тут причина, не  */}
       <FMConcrolBarItem
         active={true}
         src={fileCreateIcon}
@@ -62,16 +64,28 @@ export function FMConcrolBarItem(props) {
   );
 }
 
-function FMCreateFolderShowContext() {
+function FMCreateFolderShowContext(props) {
+  const createEntry = props.createEntry;
+
   return (
     <div className="fm-controlBar_item-context">
+      {console.log(createEntry)}
       <label htmlFor="fm-controlBar_create-folder-input">Create folder</label>
       <input
         id="fm-controlBar_create-folder-input"
         type="text"
         placeholder="Name"
       />
-      <button>Create</button>
+      <button
+        //обработчик событий который должен вызвать передаваемый метод и создать папку
+        //upd: метод дошел до кнопки, но он обращается не к родительскому элементу
+        onClick={() => {
+          createEntry('folder', 'folder2', '0');
+          console.log(filemanagerStructure);
+        }}
+      >
+        Create
+      </button>
     </div>
   );
 }
@@ -85,15 +99,7 @@ function FMCreateFileShowContext() {
         type="text"
         placeholder="Name"
       />
-      <button
-        //обработчик событий который должен вызвать передаваемый метод и создать папку
-        onClick={() => {
-          this.props.createEntry('folder', 'folder2', '0');
-          console.log(filemanagerStructure);
-        }}
-      >
-        Create
-      </button>
+      <button>Create</button>
     </div>
   );
 }
