@@ -2,7 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import logo from '../img/logo.svg';
 import FMConcrolBar from './FMControlBar';
-import { filemanagerStructure } from './FileManager';
+import { filemanagerStrusture } from '../js/store';
 
 export default class FileManagerUI extends React.Component {
   render() {
@@ -31,12 +31,12 @@ export default class FileManagerUI extends React.Component {
               <button
                 className="fm-column-sortBtn"
                 onClick={() => {
-                  filemanagerStructure.sortMethod === 'byNameASC'
-                    ? (filemanagerStructure.sortMethod = 'byNameDESC')
-                    : (filemanagerStructure.sortMethod = 'byNameASC');
+                  filemanagerStrusture.sortMethod === 'byNameASC'
+                    ? (filemanagerStrusture.sortMethod = 'byNameDESC')
+                    : (filemanagerStrusture.sortMethod = 'byNameASC');
                 }}
               >
-                {filemanagerStructure.sortMethod === 'byNameASC'
+                {filemanagerStrusture.sortMethod === 'byNameASC'
                   ? '\u2191'
                   : '\u2193'}
               </button>
@@ -46,12 +46,12 @@ export default class FileManagerUI extends React.Component {
               <button
                 className="fm-column-sortBtn"
                 onClick={() => {
-                  filemanagerStructure.sortMethod === 'byDateDESC'
-                    ? (filemanagerStructure.sortMethod = 'byDateASC')
-                    : (filemanagerStructure.sortMethod = 'byDateDESC');
+                  filemanagerStrusture.sortMethod === 'byDateDESC'
+                    ? (filemanagerStrusture.sortMethod = 'byDateASC')
+                    : (filemanagerStrusture.sortMethod = 'byDateDESC');
                 }}
               >
-                {filemanagerStructure.sortMethod === 'byDateASC'
+                {filemanagerStrusture.sortMethod === 'byDateASC'
                   ? '\u2191'
                   : '\u2193'}
               </button>

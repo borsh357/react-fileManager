@@ -12,8 +12,8 @@ import fileDOCIcon from '../img/file-doc.svg';
 import blankFileIcon from '../img/file-blank.svg';
 import folderIcon from '../img/folder.svg';
 import folderEmptyIcon from '../img/folder-empty.svg';
-import { filemanagerStructure } from './FileManager';
 import OutsideClickHandler from 'react-outside-click-handler';
+import { renameEntry, deleteEntry } from '../js/actions';
 
 export default class File extends React.Component {
   state = {
@@ -149,7 +149,7 @@ function FMRenameShowContext(props) {
             .getElementById('fm-controlBar_create-folder-input')
             .value.trim();
           if (newName === '') return;
-          filemanagerStructure.renameEntry(id, newName);
+          renameEntry(id, newName);
           closeContext();
         }}
       >
@@ -164,9 +164,7 @@ function FMDeleteShowContext(props) {
   return (
     <div className="fm-controlBar_item-context --context-right delete-context">
       <p>Delete {name} ?</p>
-      <button onClick={() => filemanagerStructure.deleteEntry(id)}>
-        Delete
-      </button>
+      <button onClick={() => deleteEntry(id)}>Delete</button>
     </div>
   );
 }

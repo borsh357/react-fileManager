@@ -6,7 +6,16 @@ import FileManager from './Components/FileManager';
 function App() {
   return (
     <div className="App">
-      <FileManager />
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <FileManager currentFolderID={0} />
+          </Route>
+          <Route path="/folder:id">
+            <FileManager currentFolderID={1} />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
