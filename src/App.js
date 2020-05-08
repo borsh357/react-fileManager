@@ -11,9 +11,7 @@ function App() {
           <Route exact path="/">
             <FileManager currentFolderID={0} />
           </Route>
-          <Route path="/folder:id">
-            <FileManager currentFolderID={1} />
-          </Route>
+          <Route path="/:currentFolderID" children={<FileManager />} />
         </Switch>
       </Router>
     </div>

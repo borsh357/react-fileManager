@@ -14,6 +14,7 @@ import folderIcon from '../img/folder.svg';
 import folderEmptyIcon from '../img/folder-empty.svg';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { renameEntry, deleteEntry } from '../js/actions';
+import { Route, Redirect } from 'react-router-dom';
 
 export default class File extends React.Component {
   state = {
@@ -66,6 +67,7 @@ export default class File extends React.Component {
         tabIndex="0"
         onFocus={() => this.setState({ isSelected: true })}
         onBlur={() => this.setState({ isSelected: false })}
+        onDoubleClick={() => openFolder(type, id)}
       >
         <div className="fm-item-row_filename">
           <img src={this.getIcon(type, name, isEmpty)} alt="" />
@@ -130,6 +132,12 @@ export default class File extends React.Component {
         </OutsideClickHandler>
       </div>
     );
+  }
+}
+
+function openFolder(type, id) {
+  if (type === 'folder') {
+    window.location = '/' + id;
   }
 }
 

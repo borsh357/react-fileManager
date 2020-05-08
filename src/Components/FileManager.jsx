@@ -2,12 +2,13 @@ import React from 'react';
 import { view } from '@risingstack/react-easy-state';
 import FileManagerUI from './FileManagerUI';
 import { getEntriesFrom } from '../js/actions';
+import { useParams } from 'react-router-dom';
 
-class FileManager extends React.Component {
-  render() {
-    const { currentFolderID } = this.props;
-    return <FileManagerUI>{getEntriesFrom(currentFolderID)}</FileManagerUI>;
-  }
+function FileManager() {
+  let { currentFolderID } = useParams();
+  return (
+    <FileManagerUI>{getEntriesFrom(parseInt(currentFolderID))}</FileManagerUI>
+  );
 }
 
 export default view(FileManager);
