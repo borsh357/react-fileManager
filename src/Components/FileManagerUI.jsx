@@ -9,8 +9,12 @@ export default class FileManagerUI extends React.Component {
     return (
       <div>
         <div className="fm-header">
-          <img className="fm-header_logo" src={logo} alt="logo" />
-          <span className="fm-header_siteName">OverSpace</span>
+          <a href="/">
+            <img className="fm-header_logo" src={logo} alt="logo" />
+          </a>
+          <a href="/">
+            <span className="fm-header_siteName">OverSpace</span>
+          </a>
           <input
             className="fm-header_searchBar"
             type="text"

@@ -1,5 +1,6 @@
 import React from 'react';
 import { createEntry } from '../js/actions';
+import { fmState } from '../js/store';
 
 export default function FMCreateFolderContextMenu(props) {
   const { closeContext } = props;
@@ -17,7 +18,7 @@ export default function FMCreateFolderContextMenu(props) {
             .getElementById('fm-controlBar_create-folder-input')
             .value.trim();
           if (folderName === '') return;
-          createEntry('folder', folderName, '0');
+          createEntry('folder', folderName, fmState.currentFolderID);
           closeContext();
         }}
       >

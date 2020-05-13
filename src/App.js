@@ -1,6 +1,11 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  Redirect,
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from 'react-router-dom';
 import FileManager from './Components/FileManager';
 
 function App() {
@@ -8,9 +13,7 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          <Route exact path="/">
-            <FileManager currentFolderID={0} />
-          </Route>
+          <Redirect exact from="/" to="/0" />
           <Route path="/:currentFolderID" children={<FileManager />} />
         </Switch>
       </Router>

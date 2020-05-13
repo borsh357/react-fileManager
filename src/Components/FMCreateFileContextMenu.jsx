@@ -1,5 +1,6 @@
 import React from 'react';
 import { createEntry } from '../js/actions';
+import { fmState } from '../js/store';
 
 export default function FMCreateFileContextMenu(props) {
   const { closeContext } = props;
@@ -17,7 +18,7 @@ export default function FMCreateFileContextMenu(props) {
             .getElementById('fm-controlBar_create-file-input')
             .value.trim();
           if (fileName === '') return;
-          createEntry('file', fileName, '0');
+          createEntry('file', fileName, fmState.currentFolderID);
           closeContext();
         }}
       >

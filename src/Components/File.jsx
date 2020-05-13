@@ -24,9 +24,11 @@ export default class File extends React.Component {
   };
 
   getIcon(type, fileName, isEmpty) {
-    const fileExtention = fileName
-      .split('.')
-      [fileName.split('.').length - 1].toLowerCase();
+    if (fileName !== '..') {
+      var fileExtention = fileName
+        .split('.')
+        [fileName.split('.').length - 1].toLowerCase();
+    }
 
     if (type === 'folder') {
       if (isEmpty) return folderEmptyIcon;

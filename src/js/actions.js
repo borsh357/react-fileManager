@@ -2,8 +2,10 @@ import React from 'react';
 import { filemanagerStrusture } from './store';
 import File from '../Components/File';
 import moment from 'moment';
+import folderEmptyIcon from '../img/folder-empty.svg';
+// import './api';
 
-export function createEntry(type, name, parentId) {
+export function createEntry(type, name, parentID) {
   const date = moment().format('DD.MM.YYYY HH:mm');
 
   let newEntry = {
@@ -15,16 +17,22 @@ export function createEntry(type, name, parentId) {
     date: date,
   };
 
-  if (newEntry.type === 'folder') newEntry.files = [];
+  if (newEntry.type === 'folder') {
+    newEntry.files = [];
+    newEntry.parentID = parentID;
+  }
 
-  if (parentId) {
+  if (parentID) {
+    console.log(parentID);
     filemanagerStrusture.entries.forEach((entry) => {
-      if (entry.id == parentId) {
+      if (entry.id === parseInt(parentID)) {
+        console.log(parentID);
         entry.files.push(newEntry.id);
       }
     });
   }
   filemanagerStrusture.entries.push(newEntry);
+  saveFiles();
 }
 
 function getEntry(id) {
@@ -52,16 +60,38 @@ function getEntry(id) {
   );
 }
 
+function GoBackIcon(props) {
+  const { parentID } = props;
+  return (
+    <div
+      className="fm-item-row"
+      tabIndex="0"
+      onDoubleClick={() => {
+        window.location = '/' + parentID;
+      }}
+    >
+      <div className="fm-item-row_filename">
+        <img src={folderEmptyIcon} alt="Go back" title="Go back" />
+        <span>..</span>
+      </div>
+    </div>
+  );
+}
+
 export function getEntriesFrom(id) {
   let gotEntries = [];
+  let parentID;
   filemanagerStrusture.entries.forEach((entry) => {
     if (entry.id === id) {
+      parentID = entry.parentID;
       entry.files.forEach((entryID) => {
         gotEntries.push(getEntry(entryID));
       });
     }
   });
   sort(gotEntries, filemanagerStrusture.sortMethod);
+  if (id !== 0)
+    gotEntries.unshift(<GoBackIcon key="0" parentID={parseInt(parentID)} />);
   return gotEntries;
 }
 
@@ -133,6 +163,7 @@ export function renameEntry(id, newName) {
       entry.name = newName;
     }
   });
+  saveFiles();
 }
 
 export function deleteEntry(id) {
@@ -146,5 +177,16 @@ export function deleteEntry(id) {
         1
       );
     }
+  });
+  saveFiles();
+}
+
+function saveFiles() {
+  fetch('http://localhost:3001/savefiles', {
+    method: 'post',
+    mode: 'no-cors',
+    body: JSON.stringify(filemanagerStrusture.entries),
+  }).catch(function (error) {
+    console.log('Request failed', error);
   });
 }

@@ -3,6 +3,11 @@
   margin: 0 auto;
 }
 
+a {
+  text-decoration: none;
+  color: #000;
+}
+
 .fm-header {
   display: grid;
   grid-template-columns: 0fr 1fr 4fr 0fr;
