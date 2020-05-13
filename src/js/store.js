@@ -7,4 +7,6 @@ export const filemanagerStrusture = store({
 
 export const fmState = store({
   currentFolderID: 0,
+  currentFolderName: 'Root',
+  sortMethod: 'byNameASC',
 });

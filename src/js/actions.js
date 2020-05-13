@@ -181,6 +181,21 @@ export function deleteEntry(id) {
   saveFiles();
 }
 
+export function search(name) {
+  filemanagerStrusture.entries[0].files = [];
+  if (!name || name === '') return;
+  console.log(name);
+  filemanagerStrusture.entries.forEach((entry) => {
+    if (
+      entry.id !== -1 &&
+      entry.name.toLowerCase().includes(name.toLowerCase())
+    ) {
+      filemanagerStrusture.entries[0].files.push(entry.id);
+    }
+  });
+  saveFiles();
+}
+
 function saveFiles() {
   fetch('http://localhost:3001/savefiles', {
     method: 'post',

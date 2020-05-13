@@ -2,9 +2,14 @@ import React from 'react';
 import propTypes from 'prop-types';
 import logo from '../img/logo.svg';
 import FMConcrolBar from './FMControlBar';
-import { filemanagerStrusture } from '../js/store';
+import { filemanagerStrusture, fmState } from '../js/store';
+import { search } from '../js/actions';
 
 export default class FileManagerUI extends React.Component {
+  state = {
+    searchValue: '',
+  };
+
   render() {
     return (
       <div>
@@ -19,14 +24,28 @@ export default class FileManagerUI extends React.Component {
             className="fm-header_searchBar"
             type="text"
             placeholder="Search"
+            onInput={() => {
+              let value = document
+                .querySelector('.fm-header_searchBar')
+                .value.trim();
+              this.setState({ searchValue: value });
+              search(value);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') window.location = '/-1';
+            }}
           />
-          <button className="fm-header_searchBtn">Go</button>
+          <button
+            className="fm-header_searchBtn"
+            onClick={() => {
+              if (this.state.searchValue !== '') window.location = '/-1';
+            }}
+          >
+            Go
+          </button>
         </div>
         <div className="fm">
-          <div className="fm-current-path">My space &gt; folder</div>
-
-          {/* далее метод передается компоненту controlBar */}
-          {/* upd: метод успешно передается ниже */}
+          <div className="fm-current-path">to do(currentFolderName)</div>
           <FMConcrolBar />
 
           <div className="fm-column-names">
